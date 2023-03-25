@@ -15,19 +15,20 @@ final class SplashView: UIView {
     
     private let topContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         return view
     }()
     
     private let bottomContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         return view
     }()
     
     let welcomeMessageLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "GetSchwifty-Regular", size: 60)
+        label.font = UIFont(name: "GetSchwifty-Regular", size: 100)
+        label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.3
         return label
@@ -96,9 +97,9 @@ final class SplashView: UIView {
     }
     
     
-    //MARK: - Animate ImageView
+    //MARK: - Animate UI Elements
     
-    private func animateImageViewsTopToBottom() {
+    private func animateUIElementsTopToBottom() {
         
         titleImageView.frame = CGRect(x: 0, y: -titleImageView.frame.size.height, width: titleImageView.frame.size.width, height: 0)
         rickImageView.frame = CGRect(x: 0, y: -self.rickImageView.frame.origin.y, width: rickImageView.frame.size.width, height: 0)
@@ -110,22 +111,23 @@ final class SplashView: UIView {
             self.mortyImageView.frame = CGRect(x: 0, y: 400, width: self.mortyImageView.frame.size.width, height: 0)
         } completion: { [unowned self] _ in
             self.loadingIndicator.stopAnimating()
-            animateImageViewToOut()
+            animateUIElementsToOut()
         }
         
     }
     
-    private func animateImageViewToOut() {
+    private func animateUIElementsToOut() {
         UIView.animate(withDuration: 1.0, animations: { [unowned self] in
             self.rickImageView.frame.origin.y = UIScreen.main.bounds.height
             self.mortyImageView.frame.origin.y = UIScreen.main.bounds.height
-            
+            self.welcomeMessageLabel.frame.origin.y = UIScreen.main.bounds.height
         }, completion: { [unowned self]  _ in
             self.rickImageView.removeFromSuperview()
             self.mortyImageView.removeFromSuperview()
             self.animationFinished.onNext(())
         })
     }
+    
     
     
 }
@@ -137,7 +139,7 @@ extension SplashView: ViewProtocol {
         backgroundColor = .white
         addSubview()
         setupConstraints()
-        animateImageViewsTopToBottom()
+        animateUIElementsTopToBottom()
     }
     
     //MARK: - AddSubview
@@ -185,6 +187,7 @@ extension SplashView: ViewProtocol {
     private func welcomeMessageLabelConstraints() {
         welcomeMessageLabel.snp.makeConstraints { make in
             make.center.equalTo(topContainerView)
+            make.leading.trailing.equalTo(topContainerView)
         }
     }
     

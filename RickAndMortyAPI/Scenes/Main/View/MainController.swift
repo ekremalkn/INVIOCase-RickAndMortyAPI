@@ -9,15 +9,19 @@ import UIKit
 
 final class MainController: UIViewController {
     
+    //MARK: - References
+    
+    let viewModel: MainViewModel = MainViewModel()
+    
     //MARK: - Life Cycle Methods
     
     override func loadView() {
         super.loadView()
-        view.backgroundColor = .blue
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.getLocations()
         navigationController?.isNavigationBarHidden = true
     }
     
