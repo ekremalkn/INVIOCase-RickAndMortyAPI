@@ -112,6 +112,7 @@ final class CharacterCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         self.makeTheViewsCornerRadius()
@@ -263,7 +264,7 @@ extension CharacterCell: CellProtocol {
     private func createdDateLabelConstraints() {
         createdDateLabel.snp.makeConstraints { make in
             make.top.equalTo(locationLabel.snp.bottom)
-            make.height.equalTo(detailView.snp.height).multipliedBy(0.15)
+            make.bottom.equalTo(contentView.snp.bottom)
             make.leading.trailing.equalTo(locationLabel)
         }
     }

@@ -13,6 +13,7 @@ protocol ServiceProtocol {
     func getCharacters() -> Observable<CharacterModel?>
     func getSingleLocation(_ id: Int) -> Observable<LocationResult?>
     func getMultipleCharacters(_ IDs: String) -> Observable<[CharacterResult]?>
+    func getSingleCharacter(_ id: Int) -> Observable<SingleCharacter?>
 }
 
 final class Service: ServiceProtocol {
@@ -32,6 +33,10 @@ final class Service: ServiceProtocol {
     
     func getMultipleCharacters(_ IDs: String) -> RxSwift.Observable<[CharacterResult]?> {
         return NetworkManager.shared.request(path: NetworkHelper.shared.multipleCharactersRequestUrl(IDs))
+    }
+    
+    func getSingleCharacter(_ id: Int) -> RxSwift.Observable<SingleCharacter?> {
+        return NetworkManager.shared.request(path: NetworkHelper.shared.singleCharacterRequestUrl(id))
     }
     
 }

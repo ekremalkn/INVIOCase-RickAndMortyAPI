@@ -88,7 +88,7 @@ final class MainView: UIView {
     }
     
     //MARK: - Change Message Label Text
-
+    
     func changeMessageLabelText(hide: Bool) {
         switch hide {
         case true:
@@ -131,7 +131,7 @@ extension MainView: ViewProtocol {
         messageLabelConstraints()
         indicatorConstraints()
     }
-
+    
     
     private func titleLabelConstraints() {
         titleLabel.snp.makeConstraints { make in

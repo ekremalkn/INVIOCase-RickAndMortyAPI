@@ -135,16 +135,12 @@ extension SplashView: ViewProtocol {
     //MARK: - AddSubview
     func addSubview() {
         addSubview(topContainerView)
-        elementsToTopContainerView()
+        addSubview(welcomeMessageLabel)
         addSubview(bottomContainerView)
         elementsToBottomContainerView()
         addSubview(seperatorView)
         addSubview(rickImageView)
         addSubview(mortyImageView)
-    }
-    
-    private func elementsToTopContainerView() {
-        topContainerView.addSubview(welcomeMessageLabel)
     }
     
     private func elementsToBottomContainerView() {
@@ -174,7 +170,7 @@ extension SplashView: ViewProtocol {
     
     private func welcomeMessageLabelConstraints() {
         welcomeMessageLabel.snp.makeConstraints { make in
-            make.center.equalTo(topContainerView)
+            make.top.equalTo(topContainerView.snp.bottom)
             make.leading.trailing.equalTo(topContainerView)
         }
     }

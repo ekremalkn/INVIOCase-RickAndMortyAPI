@@ -9,4 +9,5 @@
 enum NetworkEndPoint: String {
     case LOCATION = "location/"
     case CHARACTER = "character/"
+    case EPISODE = "episode/"
 }

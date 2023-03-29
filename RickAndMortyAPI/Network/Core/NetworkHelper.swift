@@ -25,4 +25,8 @@ final class NetworkHelper {
         return API.API_KEY.rawValue + NetworkEndPoint.CHARACTER.rawValue + "[" + IDs + "]"
     }
     
+    public func singleCharacterRequestUrl(_ id: Int) -> String {
+        return API.API_KEY.rawValue + NetworkEndPoint.CHARACTER.rawValue + "\(id)"
+    }
+    
 }

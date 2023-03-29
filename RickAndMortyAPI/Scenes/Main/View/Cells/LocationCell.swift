@@ -36,6 +36,7 @@ final class LocationCell: UICollectionViewCell {
         configureCell()
     }
     
+    //MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = frame.height / 2

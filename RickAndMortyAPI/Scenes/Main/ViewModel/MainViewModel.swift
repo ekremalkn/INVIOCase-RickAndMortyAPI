@@ -5,7 +5,6 @@
 //  Created by Ekrem Alkan on 25.03.2023.
 //
 
-import Foundation
 import RxSwift
 
 final class MainViewModel {
@@ -43,7 +42,7 @@ final class MainViewModel {
                     self?.fetchingLocationsData.onNext(false)
                     self?.errorMsg.onNext(error.localizedDescription)
                 case .completed:
-                    print("Success Location Request")
+                    print("Success Locations Request")
                 }
             }.disposed(by: disposeBag)
     }

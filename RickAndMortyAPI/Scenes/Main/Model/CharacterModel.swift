@@ -160,7 +160,7 @@ struct CharacterResult: Codable, CharacterCellProtocol {
     
     var characterCellCreated: String {
         if let created = created {
-            return created.formatDate() ?? "dd/mm/yyyy"
+            return created.formatDate(dateType: .date) ?? "dd/mm/yyyy"
         }
         return "dd/mm/yyyy"
     }

@@ -8,8 +8,7 @@
 import UIKit
 
 extension UIImageView {
-    
-    func downloadSetImage(url: String) {
+    public func downloadSetImage(url: String) {
         guard let url = URL(string: url) else { return }
         
         let task = URLSession.shared.dataTask(with: url) { data, _, error in

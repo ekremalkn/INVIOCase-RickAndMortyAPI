@@ -26,20 +26,26 @@ final class MainController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureViewController()
+    }
+
+    //MARK: - Configure View Controller
+    private func configureViewController() {
+        configureNavBar()
         createCallbacks()
         viewModel.getLocations()
         viewModel.getCharacters()
-        navigationController?.isNavigationBarHidden = true
+    }
+
+    private func configureNavBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
     }
     
-    
     //MARK: - UIScreen orientation will change
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        coordinator.animate(alongsideTransition: { [weak self] _ in
-            self?.mainView.charactersCollectionView.collectionViewLayout.invalidateLayout()
-        }, completion: nil)
+        self.mainView.charactersCollectionView.collectionViewLayout.invalidateLayout()
         
     }
     
@@ -98,7 +104,10 @@ final class MainController: UIViewController {
         }.disposed(by: disposeBag)
         
         // Handle Didselect
-        mainView.charactersCollectionView.rx.modelSelected(CharacterResult.self).bind { selectedCharacter in
+        mainView.charactersCollectionView.rx.modelSelected(CharacterResult.self).bind { [weak self] selectedCharacter in
+            guard let id = selectedCharacter.id else { return }
+            let detailController = DetailController(id: id)
+            self?.navigationController?.pushViewController(detailController, animated: true)
         }.disposed(by: disposeBag)
         
         // Set delegate for collection cell size

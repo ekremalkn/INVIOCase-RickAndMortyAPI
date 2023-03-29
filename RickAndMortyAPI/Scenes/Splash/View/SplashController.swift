@@ -38,6 +38,7 @@ final class SplashController: UIViewController {
     
     //MARK: - Configure View Controller
     private func configureViewController() {
+        navigationController?.isNavigationBarHidden = true
         createCallbacks()
     }
     
