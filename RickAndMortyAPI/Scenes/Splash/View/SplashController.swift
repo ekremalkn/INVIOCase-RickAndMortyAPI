@@ -11,19 +11,15 @@ import RxSwift
 final class SplashController: UIViewController {
     
     //MARK: - References
-    
     var splashView = SplashView()
-    
     
     //MARK: - Dispose Bag
     private let disposeBag = DisposeBag()
     
     //MARK: - Adding Key/Value to UserDefaults
-    
     let isOpenedBefore = UserDefaults.standard.bool(forKey: "isOpenedBefore")
     
     //MARK: - Life Cycle Methods
-    
     override func loadView() {
         super.loadView()
         checkIsOpenedBefore()
@@ -36,19 +32,16 @@ final class SplashController: UIViewController {
     }
     
     //MARK: - Check isOpenedBefore
-    
     private func checkIsOpenedBefore() {
         self.splashView.changeWelcomeMessageText(isOpenedBefore)
     }
     
     //MARK: - Configure View Controller
-    
     private func configureViewController() {
         createCallbacks()
     }
     
     //MARK: - Create Callbacks
-    
     private func createCallbacks() {
         animationFinishedCallback()
     }
@@ -60,7 +53,6 @@ final class SplashController: UIViewController {
     }
     
     //MARK: - Go To Main Controller
-    
     private func goToMainController() {
         let mainController = MainController()
         self.navigationController?.pushViewController(mainController, animated: true)

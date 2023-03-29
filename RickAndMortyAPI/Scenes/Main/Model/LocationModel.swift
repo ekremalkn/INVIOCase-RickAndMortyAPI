@@ -1,5 +1,5 @@
 //
-//  MainModel.swift
+//  LocationModel.swift
 //  RickAndMortyAPI
 //
 //  Created by Ekrem Alkan on 25.03.2023.
@@ -8,9 +8,9 @@
 import Foundation
 
 // MARK: - Locations
-struct Locations: Codable {
+struct LocationModel: Codable {
     let info: Info?
-    let results: [Result]?
+    let results: [LocationResult]?
 }
 
 // MARK: - Info
@@ -20,10 +20,20 @@ struct Info: Codable {
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct LocationResult: Codable, LocationCellProtocol {
     let id: Int?
     let name, type, dimension: String?
     let residents: [String]?
     let url: String?
     let created: String?
+    
+    //MARK: - LocationCellProtocol
+    var locationCellName: String {
+        if let name = name {
+            return name
+        }
+        return "Location"
+    }
+    
+    
 }

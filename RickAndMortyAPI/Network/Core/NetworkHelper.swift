@@ -12,4 +12,17 @@ final class NetworkHelper {
     public func locationRequestUrl() -> String {
         return API.API_KEY.rawValue + NetworkEndPoint.LOCATION.rawValue
     }
+    
+    public func characterRequestUrl() -> String {
+        return API.API_KEY.rawValue + NetworkEndPoint.CHARACTER.rawValue
+    }
+    
+    public func singleLocationRequestUrl(_ id: Int) -> String {
+        return API.API_KEY.rawValue + NetworkEndPoint.LOCATION.rawValue + "\(id)"
+    }
+    
+    public func multipleCharactersRequestUrl(_ IDs: String) -> String {
+        return API.API_KEY.rawValue + NetworkEndPoint.CHARACTER.rawValue + "[" + IDs + "]"
+    }
+    
 }

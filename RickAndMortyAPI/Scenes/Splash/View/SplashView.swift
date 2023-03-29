@@ -12,7 +12,6 @@ import RxSwift
 final class SplashView: UIView {
     
     //MARK: - Creating UI Elements
-    
     private let topContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -70,15 +69,12 @@ final class SplashView: UIView {
     }()
     
     //MARK: - Subject Variables
-    
     let animationFinished = PublishSubject<Void>()
     
     //MARK: - Life Cycle Methods
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureView()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -86,7 +82,6 @@ final class SplashView: UIView {
     }
     
     //MARK: - Change Welcome Message Text
-    
     func changeWelcomeMessageText(_ isOpenedBefore: Bool) {
         if isOpenedBefore {
             self.welcomeMessageLabel.text = "Hello!"
@@ -98,9 +93,7 @@ final class SplashView: UIView {
     
     
     //MARK: - Animate UI Elements
-    
     private func animateUIElementsTopToBottom() {
-        
         titleImageView.frame = CGRect(x: 0, y: -titleImageView.frame.size.height, width: titleImageView.frame.size.width, height: 0)
         rickImageView.frame = CGRect(x: 0, y: -self.rickImageView.frame.origin.y, width: rickImageView.frame.size.width, height: 0)
         mortyImageView.frame = CGRect(x: 0, y: -mortyImageView.frame.size.height, width: mortyImageView.frame.size.width, height: 0)
@@ -113,7 +106,6 @@ final class SplashView: UIView {
             self.loadingIndicator.stopAnimating()
             animateUIElementsToOut()
         }
-        
     }
     
     private func animateUIElementsToOut() {
@@ -128,13 +120,11 @@ final class SplashView: UIView {
         })
     }
     
-    
-    
 }
 
 //MARK: - UI Elements AddSubview / Setup Constraints
-
 extension SplashView: ViewProtocol {
+    //MARK: - Configure View
     func configureView() {
         backgroundColor = .white
         addSubview()
@@ -143,7 +133,6 @@ extension SplashView: ViewProtocol {
     }
     
     //MARK: - AddSubview
-    
     func addSubview() {
         addSubview(topContainerView)
         elementsToTopContainerView()
@@ -164,7 +153,6 @@ extension SplashView: ViewProtocol {
     }
     
     //MARK: - Setup Constraints
-    
     func setupConstraints() {
         topContainerViewConstraints()
         welcomeMessageLabelConstraints()

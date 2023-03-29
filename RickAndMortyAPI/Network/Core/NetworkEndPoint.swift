@@ -7,5 +7,6 @@
 
 
 enum NetworkEndPoint: String {
-    case LOCATION = "location"
+    case LOCATION = "location/"
+    case CHARACTER = "character/"
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F001C13D29D0E35E00A82553 /* String+FormatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C13C29D0E35E00A82553 /* String+FormatDate.swift */; };
 		F064C6AB29CDA67400D0729B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064C6AA29CDA67400D0729B /* AppDelegate.swift */; };
 		F064C6AD29CDA67400D0729B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064C6AC29CDA67400D0729B /* SceneDelegate.swift */; };
 		F064C6B429CDA67500D0729B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F064C6B329CDA67500D0729B /* Assets.xcassets */; };
@@ -17,7 +18,6 @@
 		F064C6D029CDA7E400D0729B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F064C6CF29CDA7E400D0729B /* RxCocoa */; };
 		F064C6D229CDA7E400D0729B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F064C6D129CDA7E400D0729B /* RxSwift */; };
 		F064C6D429CDB2E200D0729B /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064C6D329CDB2E200D0729B /* SplashView.swift */; };
-		F064C6D929CDB49100D0729B /* ViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064C6D829CDB49100D0729B /* ViewControllerProtocol.swift */; };
 		F064C6DB29CDB4BE00D0729B /* ViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064C6DA29CDB4BE00D0729B /* ViewProtocol.swift */; };
 		F064C6DE29CDD47200D0729B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064C6DD29CDD47200D0729B /* MainView.swift */; };
 		F064C6E029CDD47C00D0729B /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064C6DF29CDD47C00D0729B /* MainController.swift */; };
@@ -27,12 +27,18 @@
 		F0B57FBA29CF492100EE76E4 /* NetworkEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FB929CF492100EE76E4 /* NetworkEndPoint.swift */; };
 		F0B57FBC29CF49A700EE76E4 /* NetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FBB29CF49A700EE76E4 /* NetworkAPI.swift */; };
 		F0B57FBF29CF4DCA00EE76E4 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FBE29CF4DCA00EE76E4 /* Service.swift */; };
-		F0B57FC329CF4F8300EE76E4 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FC229CF4F8300EE76E4 /* MainModel.swift */; };
+		F0B57FC329CF4F8300EE76E4 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FC229CF4F8300EE76E4 /* LocationModel.swift */; };
 		F0B57FC629CF502200EE76E4 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FC529CF502200EE76E4 /* MainViewModel.swift */; };
-		F0B57FC829CF67E000EE76E4 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FC729CF67E000EE76E4 /* ViewModelProtocol.swift */; };
+		F0B57FD029CF6F8C00EE76E4 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FCF29CF6F8C00EE76E4 /* LocationCell.swift */; };
+		F0B57FD229CF6FA500EE76E4 /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FD129CF6FA500EE76E4 /* CharacterCell.swift */; };
+		F0B57FD529CF7D1400EE76E4 /* CellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FD429CF7D1400EE76E4 /* CellProtocol.swift */; };
+		F0B57FD729CF835700EE76E4 /* CharacterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FD629CF835700EE76E4 /* CharacterModel.swift */; };
+		F0B57FDA29CF8C2E00EE76E4 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FD929CF8C2E00EE76E4 /* UIImageView+DownloadImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F000CB5E29D2C31D00C43A5F /* RickAndMortyAPI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RickAndMortyAPI.entitlements; sourceTree = "<group>"; };
+		F001C13C29D0E35E00A82553 /* String+FormatDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+FormatDate.swift"; sourceTree = "<group>"; };
 		F064C6A729CDA67400D0729B /* RickAndMortyAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMortyAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F064C6AA29CDA67400D0729B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F064C6AC29CDA67400D0729B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,7 +47,6 @@
 		F064C6B829CDA67500D0729B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F064C6C629CDA70E00D0729B /* SplashController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashController.swift; sourceTree = "<group>"; };
 		F064C6D329CDB2E200D0729B /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		F064C6D829CDB49100D0729B /* ViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProtocol.swift; sourceTree = "<group>"; };
 		F064C6DA29CDB4BE00D0729B /* ViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProtocol.swift; sourceTree = "<group>"; };
 		F064C6DD29CDD47200D0729B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F064C6DF29CDD47C00D0729B /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
@@ -51,9 +56,13 @@
 		F0B57FB929CF492100EE76E4 /* NetworkEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEndPoint.swift; sourceTree = "<group>"; };
 		F0B57FBB29CF49A700EE76E4 /* NetworkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPI.swift; sourceTree = "<group>"; };
 		F0B57FBE29CF4DCA00EE76E4 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		F0B57FC229CF4F8300EE76E4 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		F0B57FC229CF4F8300EE76E4 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		F0B57FC529CF502200EE76E4 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		F0B57FC729CF67E000EE76E4 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
+		F0B57FCF29CF6F8C00EE76E4 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
+		F0B57FD129CF6FA500EE76E4 /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
+		F0B57FD429CF7D1400EE76E4 /* CellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellProtocol.swift; sourceTree = "<group>"; };
+		F0B57FD629CF835700EE76E4 /* CharacterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterModel.swift; sourceTree = "<group>"; };
+		F0B57FD929CF8C2E00EE76E4 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +99,9 @@
 		F064C6A929CDA67400D0729B /* RickAndMortyAPI */ = {
 			isa = PBXGroup;
 			children = (
+				F000CB5E29D2C31D00C43A5F /* RickAndMortyAPI.entitlements */,
 				F064C6BE29CDA69600D0729B /* App */,
+				F0B57FD829CF8BC400EE76E4 /* Extensions */,
 				F064C6D529CDB3CE00D0729B /* Protocols */,
 				F064C6C129CDA6DD00D0729B /* Scenes */,
 				F0B57FB329CF437400EE76E4 /* Network */,
@@ -174,9 +185,7 @@
 		F064C6D529CDB3CE00D0729B /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				F064C6D829CDB49100D0729B /* ViewControllerProtocol.swift */,
-				F064C6DA29CDB4BE00D0729B /* ViewProtocol.swift */,
-				F0B57FC729CF67E000EE76E4 /* ViewModelProtocol.swift */,
+				F0B57FD329CF7D0000EE76E4 /* View */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -184,6 +193,7 @@
 		F064C6DC29CDD46400D0729B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F0B57FCE29CF6F8100EE76E4 /* Cells */,
 				F064C6DD29CDD47200D0729B /* MainView.swift */,
 				F064C6DF29CDD47C00D0729B /* MainController.swift */,
 			);
@@ -229,7 +239,8 @@
 		F0B57FC129CF4F7200EE76E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F0B57FC229CF4F8300EE76E4 /* MainModel.swift */,
+				F0B57FC229CF4F8300EE76E4 /* LocationModel.swift */,
+				F0B57FD629CF835700EE76E4 /* CharacterModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -240,6 +251,33 @@
 				F0B57FC529CF502200EE76E4 /* MainViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0B57FCE29CF6F8100EE76E4 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F0B57FCF29CF6F8C00EE76E4 /* LocationCell.swift */,
+				F0B57FD129CF6FA500EE76E4 /* CharacterCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F0B57FD329CF7D0000EE76E4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F064C6DA29CDB4BE00D0729B /* ViewProtocol.swift */,
+				F0B57FD429CF7D1400EE76E4 /* CellProtocol.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0B57FD829CF8BC400EE76E4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F0B57FD929CF8C2E00EE76E4 /* UIImageView+DownloadImage.swift */,
+				F001C13C29D0E35E00A82553 /* String+FormatDate.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,19 +362,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0B57FC829CF67E000EE76E4 /* ViewModelProtocol.swift in Sources */,
+				F0B57FD729CF835700EE76E4 /* CharacterModel.swift in Sources */,
 				F0B57FB629CF43BE00EE76E4 /* NetworkManager.swift in Sources */,
 				F0B57FBF29CF4DCA00EE76E4 /* Service.swift in Sources */,
+				F0B57FD229CF6FA500EE76E4 /* CharacterCell.swift in Sources */,
 				F064C6E029CDD47C00D0729B /* MainController.swift in Sources */,
+				F0B57FD029CF6F8C00EE76E4 /* LocationCell.swift in Sources */,
 				F0B57FB829CF46A500EE76E4 /* NetworkHelper.swift in Sources */,
 				F064C6AB29CDA67400D0729B /* AppDelegate.swift in Sources */,
 				F0B57FC629CF502200EE76E4 /* MainViewModel.swift in Sources */,
+				F0B57FD529CF7D1400EE76E4 /* CellProtocol.swift in Sources */,
 				F064C6DE29CDD47200D0729B /* MainView.swift in Sources */,
 				F064C6D429CDB2E200D0729B /* SplashView.swift in Sources */,
 				F064C6AD29CDA67400D0729B /* SceneDelegate.swift in Sources */,
-				F064C6D929CDB49100D0729B /* ViewControllerProtocol.swift in Sources */,
+				F0B57FDA29CF8C2E00EE76E4 /* UIImageView+DownloadImage.swift in Sources */,
 				F064C6DB29CDB4BE00D0729B /* ViewProtocol.swift in Sources */,
-				F0B57FC329CF4F8300EE76E4 /* MainModel.swift in Sources */,
+				F001C13D29D0E35E00A82553 /* String+FormatDate.swift in Sources */,
+				F0B57FC329CF4F8300EE76E4 /* LocationModel.swift in Sources */,
 				F064C6C729CDA70E00D0729B /* SplashController.swift in Sources */,
 				F0B57FBA29CF492100EE76E4 /* NetworkEndPoint.swift in Sources */,
 				F0B57FBC29CF49A700EE76E4 /* NetworkAPI.swift in Sources */,
@@ -476,6 +518,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RickAndMortyAPI/RickAndMortyAPI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78Y3UD747G;
@@ -507,6 +550,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RickAndMortyAPI/RickAndMortyAPI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78Y3UD747G;
