@@ -83,7 +83,7 @@ struct SingleCharacter: Codable, DetailViewProtocol {
         return ""
     }
     
-
+    
 }
 
 // MARK: - Location

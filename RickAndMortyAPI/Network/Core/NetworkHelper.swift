@@ -9,8 +9,8 @@
 final class NetworkHelper {
     static let shared = NetworkHelper()
     
-    public func locationRequestUrl() -> String {
-        return API.API_KEY.rawValue + NetworkEndPoint.LOCATION.rawValue
+    public func locationRequestUrl(_ nextPage: Int) -> String {
+        return API.API_KEY.rawValue + NetworkEndPoint.NEXT_LOCATION.rawValue
     }
     
     public func characterRequestUrl() -> String {

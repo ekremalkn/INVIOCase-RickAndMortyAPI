@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 
 final class DetailController: UIViewController {
-
+    
     //MARK: - References
     let detailView = DetailView()
     let viewModel: DetailViewModel
@@ -46,15 +46,14 @@ final class DetailController: UIViewController {
     
     private func configureNavBar() {
         navigationController?.isNavigationBarHidden = false
-        }
-
+    }
+    
     //MARK: - Create Callbacks
     private func createCallbacks() {
         viewModelCallbacks()
     }
     
     //MARK: - ViewModel Callbacks
-    
     private func viewModelCallbacks() {
         viewModel.characterDetail.subscribe { [weak self] characterDetail in
             self?.detailView.configure(characterDetail, completion: {
@@ -66,7 +65,7 @@ final class DetailController: UIViewController {
             self?.title = name
         }.disposed(by: disposeBag)
     }
-
-
-
+    
+    
+    
 }

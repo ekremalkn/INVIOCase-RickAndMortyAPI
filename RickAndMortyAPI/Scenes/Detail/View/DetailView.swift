@@ -202,7 +202,7 @@ extension DetailView: ViewProtocol {
             make.top.equalTo(characterImageView.snp.bottom).offset(20)
             make.centerX.equalTo(characterImageView.snp.centerX)
             make.leading.equalTo(contentView.snp.leading).offset(20)
-            make.bottom.equalTo(contentView.snp.bottom)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-20)
         }
     }
     

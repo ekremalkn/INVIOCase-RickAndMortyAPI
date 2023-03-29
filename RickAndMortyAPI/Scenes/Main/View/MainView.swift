@@ -11,6 +11,11 @@ final class MainView: UIView {
     
     //MARK: - Creating UI Elements
     
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        return scrollView
+    }()
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Rick and Morty"
@@ -112,17 +117,19 @@ extension MainView: ViewProtocol {
     
     //MARK: - AddSubview
     func addSubview() {
-        addSubview(titleLabel)
-        addSubview(seperatorView1)
-        addSubview(locationsCollectionView)
-        addSubview(seperatoreView2)
-        addSubview(charactersCollectionView)
+        addSubview(scrollView)
+        scrollView.addSubview(titleLabel)
+        scrollView.addSubview(seperatorView1)
+        scrollView.addSubview(locationsCollectionView)
+        scrollView.addSubview(seperatoreView2)
+        scrollView.addSubview(charactersCollectionView)
         charactersCollectionView.addSubview(messageLabel)
-        addSubview(indicator)
+        scrollView.addSubview(indicator)
     }
     
     //MARK: - Setup Constraints
     func setupConstraints() {
+        scrollViewConstraints()
         titleLabelConstraints()
         seperatorView1Constraints()
         locationsCollectionViewConstraints()
@@ -132,22 +139,28 @@ extension MainView: ViewProtocol {
         indicatorConstraints()
     }
     
+    private func scrollViewConstraints() {
+        scrollView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalTo(self)
+        }
+    }
     
     private func titleLabelConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(15)
+            make.top.equalTo(scrollView.snp.top)
+            make.leading.equalTo(scrollView.snp.leading).offset(15)
             make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.1)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-15)
+            make.centerX.equalTo(scrollView)
+            make.trailing.equalTo(scrollView.snp.trailing).offset(-15)
         }
     }
     
     private func seperatorView1Constraints() {
         seperatorView1.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
-            make.width.equalTo(safeAreaLayoutGuide.snp.width).multipliedBy(0.9)
+            make.width.equalTo(scrollView.snp.width).multipliedBy(0.9)
             make.height.equalTo(1)
-            make.centerX.equalTo(safeAreaLayoutGuide)
+            make.centerX.equalTo(scrollView)
         }
     }
     
@@ -171,7 +184,8 @@ extension MainView: ViewProtocol {
             make.top.equalTo(seperatoreView2.snp.bottom).offset(5)
             make.width.equalTo(seperatoreView2)
             make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
-            make.bottom.equalTo(self.snp.bottom)
+            make.height.equalTo(scrollView.snp.height)
+            make.bottom.equalTo(scrollView.snp.bottom)
         }
     }
     

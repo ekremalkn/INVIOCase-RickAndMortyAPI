@@ -28,7 +28,7 @@ final class MainController: UIViewController {
         super.viewDidLoad()
         configureViewController()
     }
-
+    
     //MARK: - Configure View Controller
     private func configureViewController() {
         configureNavBar()
@@ -36,7 +36,7 @@ final class MainController: UIViewController {
         viewModel.getLocations()
         viewModel.getCharacters()
     }
-
+    
     private func configureNavBar() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .black
@@ -93,6 +93,20 @@ final class MainController: UIViewController {
             self?.viewModel.getSingleLocation(indexPath.row + 1)
         }.disposed(by: disposeBag)
         
+        // Handle lazy load
+        mainView.locationsCollectionView.rx.didEndDragging.subscribe { [weak self] _ in
+            guard let self = self else { return }
+            let contentOffSet = self.mainView.locationsCollectionView.contentOffset
+            let contentWidth = self.mainView.locationsCollectionView.contentSize.width
+            let frameWidth = self.mainView.locationsCollectionView.frame.width
+            let distance = contentWidth - frameWidth - contentOffSet.x
+            
+            print(distance)
+            if distance < 100 {
+                self.viewModel.getNextLocations(self.viewModel.nextLocation ?? "")
+            }
+        }.disposed(by: disposeBag)
+        
         // Set delegate for collection cell size
         mainView.locationsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
     }
@@ -108,6 +122,10 @@ final class MainController: UIViewController {
             guard let id = selectedCharacter.id else { return }
             let detailController = DetailController(id: id)
             self?.navigationController?.pushViewController(detailController, animated: true)
+        }.disposed(by: disposeBag)
+        
+        mainView.charactersCollectionView.rx.didEndDisplayingCell.subscribe { collection, indexPath in
+            print(collection.frame.height)
         }.disposed(by: disposeBag)
         
         // Set delegate for collection cell size
@@ -179,7 +197,7 @@ extension MainController: UICollectionViewDelegateFlowLayout {
             
         case mainView.charactersCollectionView:
             let cellWidth: CGFloat = (collectionView.frame.width - 20) / 2
-            let cellHeight: CGFloat = collectionView.frame.height / 1.75
+            let cellHeight: CGFloat = collectionView.frame.height / 2.5
             if UIDevice.current.orientation.isLandscape { // check UIDevice orientation
                 let landScapeCellHeight = collectionView.frame.height * 1.25
                 let landScapeCellWidth = (collectionView.frame.width - 30) / 3

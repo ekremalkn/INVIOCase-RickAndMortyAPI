@@ -11,6 +11,7 @@ final class MainViewModel {
     
     //MARK: - Subjects
     let locations = BehaviorSubject<[LocationResult]>(value: [])
+    var nextLocation: String? = nil
     let characters = PublishSubject<[CharacterResult]>()
     
     // Stage Subjects
@@ -30,13 +31,17 @@ final class MainViewModel {
     func getLocations() {
         fetchingLocationsData.onNext(true)
         
-        Service.shared.getLocations()
+        Service.shared.getLocations(1)
             .subscribe { [weak self] event in
+                let currentLocations = try? self?.locations.value()
+                
                 switch event {
                 case .next(let locations):
                     self?.fetchingLocationsData.onNext(false)
-                    guard let results = locations?.results else { return }
-                    self?.locations.onNext(results)
+                    guard let nextLocation = locations?.info?.next, let locations = locations?.results else { return }
+                    let allLocations = (currentLocations ?? []) + locations
+                    self?.locations.onNext(allLocations)
+                    self?.nextLocation = nextLocation
                     self?.fetchedLocationsData.onNext(())
                 case .error(let error):
                     self?.fetchingLocationsData.onNext(false)
@@ -45,6 +50,28 @@ final class MainViewModel {
                     print("Success Locations Request")
                 }
             }.disposed(by: disposeBag)
+    }
+    
+    func getNextLocations(_ url: String) {
+        fetchingLocationsData.onNext(true)
+        
+        Service.shared.getNextLocations(url).subscribe { [weak self] event in
+            let currentLocations = try? self?.locations.value()
+            
+            switch event {
+            case .next(let locations):
+                self?.fetchingLocationsData.onNext(false)
+                guard let nextLocation = locations?.info?.next, let locations = locations?.results else { return }
+                let allLocations = (currentLocations ?? []) + locations
+                self?.locations.onNext(allLocations)
+                self?.nextLocation = nextLocation
+            case .error(let error):
+                self?.fetchingLocationsData.onNext(false)
+                self?.errorMsg.onNext(error.localizedDescription)
+            case .completed:
+                print("Succes Next Locations Request")
+            }
+        }.disposed(by: disposeBag)
     }
     
     func getCharacters() {
