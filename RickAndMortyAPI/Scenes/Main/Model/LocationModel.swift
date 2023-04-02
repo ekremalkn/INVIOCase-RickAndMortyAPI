@@ -37,3 +37,4 @@ struct LocationResult: Codable, LocationCellProtocol {
     
     
 }
+

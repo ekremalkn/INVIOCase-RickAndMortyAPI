@@ -24,7 +24,18 @@ final class DetailView: UIView {
     //MARK: - Creating UI Elements
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.contentInsetAdjustmentBehavior = .always
         return scrollView
+    }()
+    
+    private let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialLight)
+    
+    private let visualEffectView = UIVisualEffectView()
+    
+    private let selfBackgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleToFill
+        return imageView
     }()
     
     private let contentView: UIView = {
@@ -40,12 +51,6 @@ final class DetailView: UIView {
         return imageView
     }()
     
-    let nameLabelView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
-    
     let charachterNameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -56,6 +61,13 @@ final class DetailView: UIView {
         label.minimumScaleFactor = 0.3
         label.sizeToFit()
         return label
+    }()
+    
+    let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.color = .gray
+        indicator.hidesWhenStopped = true
+        return indicator
     }()
     
     private let detailStackView: UIStackView = {
@@ -72,6 +84,7 @@ final class DetailView: UIView {
         return stackView
     }()
     
+    //MARK: - Details Data
     let details: [String] = ["Status:", "Specy:", "Gender:", "Origin:", "Location:", "Episodes:", "Created at:"]
     var values: [String] = []
     
@@ -79,7 +92,6 @@ final class DetailView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureView()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -89,11 +101,7 @@ final class DetailView: UIView {
     //MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.layer.cornerRadius = 20
-        contentView.layer.masksToBounds = true
-        
-        characterImageView.layer.cornerRadius = 20
-        characterImageView.layer.masksToBounds = true
+        cornerRadiusToViews()
     }
     
     //MARK: - Setup StackView Elements
@@ -117,9 +125,11 @@ final class DetailView: UIView {
         return label
     }
     
+    //MARK: - Configure
     func configure(_ data: DetailViewProtocol, completion: @escaping () -> ()) {
         charachterNameLabel.text = data.detailViewCharacterName
         characterImageView.downloadSetImage(url: data.detailViewCharacterImage)
+        selfBackgroundImageView.downloadSetImage(url: data.detailViewCharacterImage)
         values.append(data.detailViewStatus)
         values.append(data.detailViewSpecy)
         values.append(data.detailViewGender)
@@ -129,6 +139,24 @@ final class DetailView: UIView {
         values.append(data.detailViewCreatedDate)
         completion()
     }
+    
+    //MARK: - Setup Visual EffectView
+    private func setupVisualEffectView() {
+        visualEffectView.effect = blurEffect
+        visualEffectView.frame = selfBackgroundImageView.bounds
+        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    }
+    
+    //MARK: - Corner Radius to Views
+    private func cornerRadiusToViews() {
+        contentView.layer.cornerRadius = 20
+        contentView.layer.masksToBounds = true
+        
+        characterImageView.layer.cornerRadius = 20
+        characterImageView.layer.masksToBounds = true
+    }
+    
+    
 }
 
 //MARK: - UI Elements AddSubview / SetupConstraints
@@ -138,18 +166,30 @@ extension DetailView: ViewProtocol {
         backgroundColor = .white
         addSubview()
         setupConstraints()
+        setupVisualEffectView()
     }
     
     //MARK: - AddSubview
     func addSubview() {
+        addSubview(selfBackgroundImageView)
+        selfBackgroundImageView.addSubview(visualEffectView)
         addSubview(scrollView)
-        scrollView.addSubview(contentView)
+        elementsToScrollView()
         elementsToContentView()
+        elementsToCharacterImageView()
+    }
+    
+    private func elementsToScrollView() {
+        scrollView.addSubview(contentView)
     }
     
     private func elementsToContentView() {
         contentView.addSubview(characterImageView)
         contentView.addSubview(detailStackView)
+    }
+    
+    private func elementsToCharacterImageView() {
+        characterImageView.addSubview(loadingIndicator)
     }
     
     func addSetupStackView() {
@@ -167,15 +207,24 @@ extension DetailView: ViewProtocol {
     
     //MARK: - Setup Constraints
     func setupConstraints() {
+        characterBackgroundImageConstraints()
         scrollViewConstraints()
         contentViewConstraints()
         characterImageViewConstraints()
         detailStackViewConstraints()
+        loadingIndicatorConstraints()
+    }
+    
+    private func characterBackgroundImageConstraints() {
+        selfBackgroundImageView.snp.makeConstraints { make in
+            make.leading.top.trailing.bottom.equalTo(self)
+        }
     }
     
     private func scrollViewConstraints() {
         scrollView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalTo(self)
+            make.top.bottom.equalTo(self)
+            make.leading.trailing.equalTo(safeAreaLayoutGuide)
         }
     }
     
@@ -203,6 +252,13 @@ extension DetailView: ViewProtocol {
             make.centerX.equalTo(characterImageView.snp.centerX)
             make.leading.equalTo(contentView.snp.leading).offset(20)
             make.bottom.equalTo(contentView.snp.bottom).offset(-20)
+        }
+    }
+    
+    private func loadingIndicatorConstraints() {
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalTo(characterImageView.snp.center)
+            make.width.height.equalTo(characterImageView.snp.height).multipliedBy(0.2)
         }
     }
     

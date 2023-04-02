@@ -29,6 +29,11 @@ final class MainController: UIViewController {
         configureViewController()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     //MARK: - Configure View Controller
     private func configureViewController() {
         configureNavBar()
@@ -63,15 +68,27 @@ final class MainController: UIViewController {
     
     private func locationsCollectionViewCallbacks() {
         // Binding Data
-        viewModel.locations.bind(to: mainView.locationsCollectionView.rx.items(cellIdentifier: LocationCell.identifier, cellType: LocationCell.self)) { row, location, cell in
-            cell.configure(location)
+        
+        viewModel.locations.bind(to: mainView.locationsCollectionView.rx.items) { [weak self] collectionView, row, location in
+            let indexPath = IndexPath(row: row, section: 0)
+            do {
+                let locationsCount = try? self?.viewModel.locations.value().count
+                if indexPath.row == (locationsCount ?? 1) - 1  {
+                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingCell.identifier, for: indexPath) as? LoadingCell else { return UICollectionViewCell() }
+                    return cell
+                } else {
+                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LocationCell.identifier, for: indexPath) as? LocationCell else { return UICollectionViewCell() }
+                    cell.configure(location)
+                    return cell
+                }
+            }
+            
         }.disposed(by: disposeBag)
         
         // Handle Didselect
         mainView.locationsCollectionView.rx.modelSelected(LocationResult.self).bind { [weak self] selectedLocation in
             if let id = selectedLocation.id {
                 self?.viewModel.getSingleLocation(id)
-                
             }
         }.disposed(by: disposeBag)
         
@@ -93,17 +110,15 @@ final class MainController: UIViewController {
             self?.viewModel.getSingleLocation(indexPath.row + 1)
         }.disposed(by: disposeBag)
         
-        // Handle lazy load
-        mainView.locationsCollectionView.rx.didEndDragging.subscribe { [weak self] _ in
-            guard let self = self else { return }
-            let contentOffSet = self.mainView.locationsCollectionView.contentOffset
-            let contentWidth = self.mainView.locationsCollectionView.contentSize.width
-            let frameWidth = self.mainView.locationsCollectionView.frame.width
-            let distance = contentWidth - frameWidth - contentOffSet.x
-            
-            print(distance)
-            if distance < 100 {
-                self.viewModel.getNextLocations(self.viewModel.nextLocation ?? "")
+        mainView.locationsCollectionView.rx.willDisplayCell.subscribe { [weak self] cell, indexPath in
+            guard let cell = cell as? LoadingCell else { return }
+            do {
+                let locationsCount = try? self?.viewModel.locations.value().count
+                if indexPath.row == (locationsCount ?? 1) - 1 {
+                    guard let nextLocationUrl = self?.viewModel.nextLocation else { cell.alertLabelIsHidden = false; return }
+                    cell.loadingIndicator.startAnimating()
+                    self?.viewModel.getNextLocationUrl(nextLocationUrl)
+                }
             }
         }.disposed(by: disposeBag)
         
@@ -115,6 +130,7 @@ final class MainController: UIViewController {
         // Binding Data
         viewModel.characters.bind(to: mainView.charactersCollectionView.rx.items(cellIdentifier: CharacterCell.identifier, cellType: CharacterCell.self)) { row, character, cell in
             cell.configure(character)
+            
         }.disposed(by: disposeBag)
         
         // Handle Didselect
@@ -122,10 +138,6 @@ final class MainController: UIViewController {
             guard let id = selectedCharacter.id else { return }
             let detailController = DetailController(id: id)
             self?.navigationController?.pushViewController(detailController, animated: true)
-        }.disposed(by: disposeBag)
-        
-        mainView.charactersCollectionView.rx.didEndDisplayingCell.subscribe { collection, indexPath in
-            print(collection.frame.height)
         }.disposed(by: disposeBag)
         
         // Set delegate for collection cell size
@@ -139,7 +151,7 @@ final class MainController: UIViewController {
     }
     
     private func locationStageCallbacks() {
-        viewModel.fetchingLocationsData.subscribe { value in
+        viewModel.fetchingNextLocationsData.subscribe { value in
             if value {
                 print("locations yakalanmaya başlandı")
             } else {
@@ -147,7 +159,7 @@ final class MainController: UIViewController {
             }
         }.disposed(by: disposeBag)
         
-        viewModel.fetchedLocationsData.subscribe { _ in
+        viewModel.fetchedNextLocationsData.subscribe { _ in
             print("locations yakalama başarılı")
         }.disposed(by: disposeBag)
         
@@ -179,7 +191,6 @@ final class MainController: UIViewController {
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
-
 extension MainController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {

@@ -51,6 +51,7 @@ final class DetailController: UIViewController {
     //MARK: - Create Callbacks
     private func createCallbacks() {
         viewModelCallbacks()
+        detailStageCallbacks()
     }
     
     //MARK: - ViewModel Callbacks
@@ -64,6 +65,21 @@ final class DetailController: UIViewController {
         viewModel.characterName.subscribe { [weak self] name in
             self?.title = name
         }.disposed(by: disposeBag)
+    }
+    
+    private func detailStageCallbacks() {
+        viewModel.fetchingCharacterDetail.subscribe { [weak self] value in
+            if value {
+                self?.detailView.loadingIndicator.startAnimating()
+            } else {
+                self?.detailView.loadingIndicator.stopAnimating()
+            }
+        }.disposed(by: disposeBag)
+        
+        viewModel.fetchedCharacterDetail.subscribe { [weak self] _ in
+            self?.detailView.loadingIndicator.stopAnimating()
+        }.disposed(by: disposeBag)
+        
     }
     
     

@@ -15,8 +15,8 @@ final class MainViewModel {
     let characters = PublishSubject<[CharacterResult]>()
     
     // Stage Subjects
-    let fetchingLocationsData = PublishSubject<Bool>()
-    let fetchedLocationsData = PublishSubject<Void>()
+    let fetchingNextLocationsData = PublishSubject<Bool>()
+    let fetchedNextLocationsData = PublishSubject<Void>()
     let fetchingSingleLocationData = PublishSubject<Bool>()
     let fetchedSingleLocationData = PublishSubject<Void>()
     let fetchingCharactersData = PublishSubject<Bool>()
@@ -29,7 +29,7 @@ final class MainViewModel {
     
     //MARK: - Methods
     func getLocations() {
-        fetchingLocationsData.onNext(true)
+        fetchingNextLocationsData.onNext(true)
         
         Service.shared.getLocations(1)
             .subscribe { [weak self] event in
@@ -37,14 +37,14 @@ final class MainViewModel {
                 
                 switch event {
                 case .next(let locations):
-                    self?.fetchingLocationsData.onNext(false)
-                    guard let nextLocation = locations?.info?.next, let locations = locations?.results else { return }
+                    self?.fetchingNextLocationsData.onNext(false)
+                    guard let nextLocation = locations?.info?.next, let locations = locations?.results else { return  }
                     let allLocations = (currentLocations ?? []) + locations
                     self?.locations.onNext(allLocations)
                     self?.nextLocation = nextLocation
-                    self?.fetchedLocationsData.onNext(())
+                    self?.fetchedNextLocationsData.onNext(())
                 case .error(let error):
-                    self?.fetchingLocationsData.onNext(false)
+                    self?.fetchingNextLocationsData.onNext(false)
                     self?.errorMsg.onNext(error.localizedDescription)
                 case .completed:
                     print("Success Locations Request")
@@ -53,23 +53,39 @@ final class MainViewModel {
     }
     
     func getNextLocations(_ url: String) {
-        fetchingLocationsData.onNext(true)
+        fetchingNextLocationsData.onNext(true)
         
         Service.shared.getNextLocations(url).subscribe { [weak self] event in
             let currentLocations = try? self?.locations.value()
             
             switch event {
             case .next(let locations):
-                self?.fetchingLocationsData.onNext(false)
-                guard let nextLocation = locations?.info?.next, let locations = locations?.results else { return }
+                self?.fetchingNextLocationsData.onNext(false)
+                guard let locations = locations?.results else { return }
                 let allLocations = (currentLocations ?? []) + locations
+                self?.fetchedNextLocationsData.onNext(())
                 self?.locations.onNext(allLocations)
-                self?.nextLocation = nextLocation
             case .error(let error):
-                self?.fetchingLocationsData.onNext(false)
+                self?.fetchingNextLocationsData.onNext(false)
                 self?.errorMsg.onNext(error.localizedDescription)
             case .completed:
                 print("Succes Next Locations Request")
+            }
+        }.disposed(by: disposeBag)
+    }
+    
+    func getNextLocationUrl(_ url: String) {
+        
+        Service.shared.getNextLocations(url).subscribe { [weak self] event in
+            switch event {
+            case .next(let locations):
+                guard let nextLocationUrl = locations?.info?.next else { self?.nextLocation = nil; return }
+                self?.nextLocation = nextLocationUrl
+                self?.getNextLocations(nextLocationUrl)
+            case .error(let error):
+                self?.errorMsg.onNext(error.localizedDescription)
+            case .completed:
+                print("Succes Next Location Url Request")
             }
         }.disposed(by: disposeBag)
     }
@@ -111,7 +127,7 @@ final class MainViewModel {
                 }
                 
             case .error(let error):
-                self?.fetchingLocationsData.onNext(false)
+                self?.fetchingNextLocationsData.onNext(false)
                 self?.errorMsg.onNext(error.localizedDescription)
             case .completed:
                 print("Success Single Location Request")

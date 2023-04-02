@@ -23,7 +23,7 @@ final class LocationCell: UICollectionViewCell {
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
-    
+
     override var isSelected: Bool {
         didSet {
             self.changeColor()
@@ -97,4 +97,5 @@ extension LocationCell: CellProtocol {
             make.leading.top.trailing.bottom.equalTo(contentView)
         }
     }
+
 }

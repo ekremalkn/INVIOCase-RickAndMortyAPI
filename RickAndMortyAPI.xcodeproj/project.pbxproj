@@ -27,6 +27,7 @@
 		F09242AE29D48E94008A7F90 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09242AD29D48E94008A7F90 /* DetailModel.swift */; };
 		F09242B129D48F98008A7F90 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09242B029D48F98008A7F90 /* DetailViewModel.swift */; };
 		F09242B329D49DAE008A7F90 /* Array+CharacterParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09242B229D49DAE008A7F90 /* Array+CharacterParsing.swift */; };
+		F09242B729D4F026008A7F90 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09242B629D4F026008A7F90 /* LoadingCell.swift */; };
 		F0B57FB629CF43BE00EE76E4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FB529CF43BE00EE76E4 /* NetworkManager.swift */; };
 		F0B57FB829CF46A500EE76E4 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FB729CF46A500EE76E4 /* NetworkHelper.swift */; };
 		F0B57FBA29CF492100EE76E4 /* NetworkEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B57FB929CF492100EE76E4 /* NetworkEndPoint.swift */; };
@@ -42,7 +43,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F000CB5E29D2C31D00C43A5F /* RickAndMortyAPI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RickAndMortyAPI.entitlements; sourceTree = "<group>"; };
 		F001C13C29D0E35E00A82553 /* String+FormatDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+FormatDate.swift"; sourceTree = "<group>"; };
 		F064C6A729CDA67400D0729B /* RickAndMortyAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMortyAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F064C6AA29CDA67400D0729B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +61,7 @@
 		F09242AD29D48E94008A7F90 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
 		F09242B029D48F98008A7F90 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		F09242B229D49DAE008A7F90 /* Array+CharacterParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+CharacterParsing.swift"; sourceTree = "<group>"; };
+		F09242B629D4F026008A7F90 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		F0B57FB529CF43BE00EE76E4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F0B57FB729CF46A500EE76E4 /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		F0B57FB929CF492100EE76E4 /* NetworkEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEndPoint.swift; sourceTree = "<group>"; };
@@ -109,7 +110,6 @@
 		F064C6A929CDA67400D0729B /* RickAndMortyAPI */ = {
 			isa = PBXGroup;
 			children = (
-				F000CB5E29D2C31D00C43A5F /* RickAndMortyAPI.entitlements */,
 				F064C6BE29CDA69600D0729B /* App */,
 				F0B57FD829CF8BC400EE76E4 /* Extensions */,
 				F064C6D529CDB3CE00D0729B /* Protocols */,
@@ -295,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				F0B57FCF29CF6F8C00EE76E4 /* LocationCell.swift */,
+				F09242B629D4F026008A7F90 /* LoadingCell.swift */,
 				F0B57FD129CF6FA500EE76E4 /* CharacterCell.swift */,
 			);
 			path = Cells;
@@ -421,6 +422,7 @@
 				F064C6AD29CDA67400D0729B /* SceneDelegate.swift in Sources */,
 				F0B57FDA29CF8C2E00EE76E4 /* UIImageView+DownloadImage.swift in Sources */,
 				F064C6DB29CDB4BE00D0729B /* ViewProtocol.swift in Sources */,
+				F09242B729D4F026008A7F90 /* LoadingCell.swift in Sources */,
 				F001C13D29D0E35E00A82553 /* String+FormatDate.swift in Sources */,
 				F0B57FC329CF4F8300EE76E4 /* LocationModel.swift in Sources */,
 				F064C6C729CDA70E00D0729B /* SplashController.swift in Sources */,

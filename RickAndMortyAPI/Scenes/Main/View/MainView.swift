@@ -43,6 +43,7 @@ final class MainView: UIView {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.showsHorizontalScrollIndicator = false
         collection.register(LocationCell.self, forCellWithReuseIdentifier: LocationCell.identifier)
+        collection.register(LoadingCell.self, forCellWithReuseIdentifier: LoadingCell.identifier)
         return collection
     }()
     
@@ -118,6 +119,10 @@ extension MainView: ViewProtocol {
     //MARK: - AddSubview
     func addSubview() {
         addSubview(scrollView)
+        elementsToScrollView()
+    }
+    
+    private func elementsToScrollView() {
         scrollView.addSubview(titleLabel)
         scrollView.addSubview(seperatorView1)
         scrollView.addSubview(locationsCollectionView)
@@ -191,7 +196,7 @@ extension MainView: ViewProtocol {
     
     private func messageLabelConstraints() {
         messageLabel.snp.makeConstraints { make in
-            make.center.equalTo(charactersCollectionView)
+            make.center.equalTo(safeAreaLayoutGuide)
             make.leading.equalTo(charactersCollectionView.snp.leading).offset(10)
             make.trailing.equalTo(charactersCollectionView.snp.trailing).offset(-10)
         }
